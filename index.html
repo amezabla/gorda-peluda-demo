@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gorda Peluda CRM · Prototipo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark" aria-hidden="true">G</div>
+          <div>
+            <p class="brand-name">GORDA-PELUDA-CRM</p>
+            <p class="brand-subtitle">Prototipo de validación</p>
+          </div>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+          <button class="nav-btn active" type="button" data-view="inicio">Inicio</button>
+          <button class="nav-btn" type="button" data-view="compras">Compras</button>
+          <button class="nav-btn" type="button" data-view="ventas">Ventas</button>
+          <button class="nav-btn" type="button" data-view="bancos">Bancos</button>
+          <button class="nav-btn" type="button" data-view="control">Control</button>
+        </nav>
+      </header>
+
+      <div class="prototype-banner" role="status" aria-live="polite">
+        Prototipo de validación · Datos ficticios · Campos y reglas sujetos a revisión
+      </div>
+
+      <main class="main-content">
+        <section id="inicio-view" class="view active" aria-label="Inicio">
+          <div class="hero-card">
+            <div>
+              <p class="eyebrow">Primer draft</p>
+              <h1>Vista general del prototipo</h1>
+              <p class="lead">
+                Esta demo muestra una propuesta básica para gestionar compras, revisar
+                información y explorar el flujo de una primera validación funcional.
+              </p>
+            </div>
+            <div class="hero-actions">
+              <button class="primary-btn" type="button" data-view="compras">Ir a compras</button>
+            </div>
+          </div>
+
+          <div class="stats-grid" aria-label="Indicadores de ejemplo">
+            <article class="stat-card">
+              <p class="stat-label">Compras de ejemplo</p>
+              <p id="home-purchase-count" class="stat-value">0</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-label">Suma de importes</p>
+              <p id="home-purchase-total" class="stat-value">0</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-label">Estado</p>
+              <p class="stat-value small">Pendiente</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="compras-view" class="view" aria-label="Compras">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Módulo</p>
+              <h2>Compras</h2>
+            </div>
+            <button id="new-purchase-btn" class="primary-btn" type="button">Nueva compra</button>
+          </div>
+
+          <div class="search-row">
+            <label class="search-field" for="purchase-search">
+              <span>Buscar</span>
+              <input id="purchase-search" type="search" placeholder="Referencia o proveedor" />
+            </label>
+          </div>
+
+          <div id="purchase-list" class="table-wrap" aria-live="polite"></div>
+        </section>
+
+        <section id="nueva-compra-view" class="view" aria-label="Nueva compra">
+          <div class="section-header compact">
+            <div>
+              <p class="eyebrow">Registro</p>
+              <h2>Nueva compra</h2>
+            </div>
+          </div>
+
+          <form id="purchase-form" novalidate>
+            <div class="form-grid">
+              <div class="field-group">
+                <label for="reference">Referencia</label>
+                <input id="reference" name="reference" type="text" autocomplete="off" />
+                <p class="error-text" data-error-for="reference"></p>
+              </div>
+
+              <div class="field-group">
+                <label for="date">Fecha</label>
+                <input id="date" name="date" type="date" />
+                <p class="error-text" data-error-for="date"></p>
+              </div>
+
+              <div class="field-group">
+                <label for="provider">Proveedor ficticio</label>
+                <select id="provider" name="provider">
+                  <option value="">Selecciona un proveedor</option>
+                  <option value="Proveedor Alfa">Proveedor Alfa</option>
+                  <option value="Casa Beta">Casa Beta</option>
+                  <option value="Muebles Gamma">Muebles Gamma</option>
+                  <option value="Logística Delta">Logística Delta</option>
+                </select>
+                <p class="error-text" data-error-for="provider"></p>
+              </div>
+
+              <div class="field-group">
+                <label for="amount">Importe</label>
+                <input id="amount" name="amount" type="number" step="0.01" min="0.01" placeholder="0.00" />
+                <p class="error-text" data-error-for="amount"></p>
+              </div>
+            </div>
+
+            <div class="field-group full-width">
+              <label for="description">Descripción</label>
+              <textarea id="description" name="description" rows="4" placeholder="Describe la compra de ejemplo"></textarea>
+              <p class="error-text" data-error-for="description"></p>
+            </div>
+
+            <p class="helper-note">
+              El importe es ilustrativo. Moneda y desglose fiscal pendientes de definición.
+            </p>
+
+            <div class="form-actions">
+              <button class="primary-btn" type="submit">Guardar compra</button>
+              <button class="secondary-btn" type="button" id="cancel-purchase-btn">Cancelar</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="detalle-compra-view" class="view" aria-label="Detalle de compra">
+          <div class="section-header compact">
+            <div>
+              <p class="eyebrow">Detalle</p>
+              <h2>Compra seleccionada</h2>
+            </div>
+          </div>
+          <div id="purchase-detail" class="detail-card"></div>
+        </section>
+
+        <section id="control-view" class="view" aria-label="Control">
+          <div class="section-header compact">
+            <div>
+              <p class="eyebrow">Reporte ilustrativo</p>
+              <h2>Control</h2>
+            </div>
+          </div>
+
+          <div class="filter-panel">
+            <div class="filter-group">
+              <label for="control-start">Fecha inicial</label>
+              <input id="control-start" type="date" />
+            </div>
+            <div class="filter-group">
+              <label for="control-end">Fecha final</label>
+              <input id="control-end" type="date" />
+            </div>
+            <div class="filter-actions">
+              <button id="apply-control-filter" class="primary-btn" type="button">Aplicar</button>
+              <button id="clear-control-filter" class="secondary-btn" type="button">Limpiar</button>
+            </div>
+          </div>
+
+          <div id="control-summary" class="summary-box" aria-live="polite"></div>
+          <div id="control-list" class="table-wrap" aria-live="polite"></div>
+        </section>
+
+        <section id="ventas-view" class="view pending-view" aria-label="Ventas">
+          <div class="pending-card">
+            <p class="eyebrow">Módulo pendiente</p>
+            <h2>Ventas</h2>
+            <p>
+              Pendiente de definición. Este módulo propone mostrar registros de ventas,
+              clientes y flujo de facturación, pero todavía no está validado como
+              requisito del producto.
+            </p>
+          </div>
+        </section>
+
+        <section id="bancos-view" class="view pending-view" aria-label="Bancos">
+          <div class="pending-card">
+            <p class="eyebrow">Módulo pendiente</p>
+            <h2>Bancos</h2>
+            <p>
+              Pendiente de definición. En esta versión se muestra como propuesta de
+              control de movimientos bancarios, sin asumir reglas fiscales ni saldos reales.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
